@@ -1,16 +1,17 @@
 import Alarm from "@/images/alarm.svg";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 
 dayjs.extend(utc);
-
+dayjs.extend(timezone);
 type TagProps = {
   registrationEnd: string; // 모집 마감 날짜를 받음
 };
 
 export default function Tag({ registrationEnd }: TagProps) {
   const now = dayjs();
-  const endDate = dayjs(registrationEnd);
+  const endDate = dayjs(registrationEnd).tz("Asia/Seoul");
 
   let displayText = "";
 
