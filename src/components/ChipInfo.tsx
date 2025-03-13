@@ -1,7 +1,9 @@
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 
 dayjs.extend(utc);
+dayjs.extend(timezone);
 
 type ChipInfoProps = {
   dateTime: string;
@@ -9,9 +11,9 @@ type ChipInfoProps = {
 
 export default function ChipInfo({ dateTime }: ChipInfoProps) {
   // 날짜 포맷: "MM-DD" 형식
-  const formattedDate = dayjs(dateTime).format("M월 D일");
+  const formattedDate = dayjs(dateTime).tz("Asia/Seoul").format("M월 D일");
   // 시간 포맷: "HH:MM" 형식
-  const formattedTime = dayjs(dateTime).format("HH:mm");
+  const formattedTime = dayjs(dateTime).tz("Asia/Seoul").format("HH:mm");
 
   return (
     <div className="flex gap-2">
