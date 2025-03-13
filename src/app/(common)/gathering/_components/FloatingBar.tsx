@@ -11,7 +11,9 @@ import { useLeaveGathering } from "@/hooks/useLeaveGathering";
 import { useCancelGathering } from "../_hooks/useCancelGathering";
 import type { GatheringType } from "@/types";
 import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone";
 
+dayjs.extend(timezone);
 type FloatingBarProps = {
   gatheringId: string;
   gathering: GatheringType;
@@ -41,7 +43,7 @@ export default function FloatingBar({ gatheringId, gathering, hostUserId }: Floa
 
   const isHost = user?.id === hostUserId;
   const isJoined = user ? participantIdList?.includes(user?.id) : false;
-  const isValid = dayjs().isBefore(dayjs(registrationEnd));
+  const isValid = dayjs().isBefore(dayjs(registrationEnd).tz("Asia/Seoul"));
 
   const closeModal = () => setActiveModal(null);
 
