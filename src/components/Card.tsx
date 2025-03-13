@@ -17,6 +17,9 @@ import InactiveLayer from "./InactiveLayer";
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(timezone);
 
 export default function Card({
   id,
@@ -32,8 +35,8 @@ export default function Card({
   const { toggleFavorite, favorites } = useFavoritesStore();
 
   const progress = capacity > 0 ? (participantCount / capacity) * 100 : 0;
-  const now = dayjs().add(9, "hour").utc();
-  const endDate = dayjs.utc(registrationEnd);
+  const now = dayjs().tz("Asia/Seoul");
+  const endDate = dayjs(registrationEnd).tz("Asia/Seoul");
   const isClosed = Boolean(endDate && endDate.isBefore(now));
   const isLiked = favorites.includes(id.toString());
 

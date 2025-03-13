@@ -2,8 +2,10 @@ import { useEffect, useMemo } from "react";
 import { useFetchGatherings } from "@/app/(common)/_home/_hooks/useFetchGatherings";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 
 dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export const useGatherings = (filters: any) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useFetchGatherings(filters);
@@ -16,8 +18,8 @@ export const useGatherings = (filters: any) => {
       data?.pages
         ?.flatMap((page) => page.data)
         ?.filter((card) => {
-          const endDate = dayjs.utc(card.registrationEnd); // UTC 변환
-          const now = dayjs().add(9, "hour").utc(); // 현재 시간 (로컬 + 9시간 후 UTC 변환)
+          const endDate = dayjs(card.registrationEnd).tz("Asia/Seoul"); // UTC 변환
+          const now = dayjs(); // 현재 시간 (로컬 + 9시간 후 UTC 변환)
 
           return endDate.isValid() && endDate.isAfter(now); // 현재 UTC 시간보다 이후면 유효한 모임
         }) || [],
