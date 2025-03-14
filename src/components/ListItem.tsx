@@ -6,8 +6,10 @@ import Check from "@/images/check.svg";
 import { PropsWithChildren } from "react";
 import InactiveLayer from "@/components/InactiveLayer";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 
+dayjs.extend(utc);
 dayjs.extend(timezone);
 
 type ListItemProps = {
