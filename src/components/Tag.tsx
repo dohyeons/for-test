@@ -10,7 +10,7 @@ type TagProps = {
 };
 
 export default function Tag({ registrationEnd }: TagProps) {
-  const now = dayjs();
+  const now = dayjs().tz("Asia/Seoul");
   const endDate = dayjs(registrationEnd).tz("Asia/Seoul");
 
   let displayText = "";
